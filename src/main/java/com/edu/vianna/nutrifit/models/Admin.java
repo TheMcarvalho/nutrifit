@@ -1,0 +1,11 @@
+package com.edu.vianna.nutrifit.models;
+
+import jakarta.persistence.Entity;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@Entity
+public class Admin extends Usuario{
+}
