@@ -1,5 +1,6 @@
 package com.edu.vianna.nutrifit.models;
 
+import com.edu.vianna.nutrifit.models.enums.ETipoRefeicao;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
