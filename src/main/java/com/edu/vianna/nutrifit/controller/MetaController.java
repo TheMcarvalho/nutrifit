@@ -1,0 +1,40 @@
+package com.edu.vianna.nutrifit.controller;
+
+import com.edu.vianna.nutrifit.models.Meta;
+import com.edu.vianna.nutrifit.service.MetaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("/meta")
+public class MetaController {
+    @Autowired
+    MetaService metaServ;
+
+    @GetMapping("/listar")
+    public String listarMeta(Model model) {
+        model.addAttribute("listarMeta", metaServ.getMetasCliente(null));
+        return "meta";
+    }
+    @PostMapping("/salvar")
+    public String salvarMeta(Meta meta){
+        metaServ.salvarMeta(meta);
+        return "redirect:/meta/listar";
+    }
+
+    @PostMapping("/deletar")
+    public String deletarMeta(Meta meta){
+        metaServ.deletarMeta(meta.getId());
+        return "redirect:/meta/listar";
+    }
+
+    @PostMapping("/concluir")
+    public String concluirMeta(Meta meta) {
+        metaServ.marcarComoConcluida(meta.getId());
+        return "redirect:/meta/listar";
+    }
+}
