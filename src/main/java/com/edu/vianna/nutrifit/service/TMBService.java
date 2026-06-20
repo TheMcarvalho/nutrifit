@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class TMBService {
@@ -23,6 +24,10 @@ public class TMBService {
             resultadoTMB =447.6 + (9.2 * cliente.getPeso())  + (3.1 * cliente.getAltura()) - (4.3 * cliente.getIdade());
         }
         return  resultadoTMB;
+    }
+
+    public List<TMB> getTMBPorCliente(Cliente cliente){
+        return tmbRepo.findByCliente(cliente);
     }
 
     private double necessidadeCalorica(double tmb,ENivelAtividade eNivelAtividade){
