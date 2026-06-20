@@ -1,6 +1,8 @@
 package com.edu.vianna.nutrifit.controller;
 
 import com.edu.vianna.nutrifit.models.FichaTreino;
+import com.edu.vianna.nutrifit.service.ClienteService;
+import com.edu.vianna.nutrifit.service.ExercicioService;
 import com.edu.vianna.nutrifit.service.FichaTreinoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,18 @@ import java.util.Optional;
 public class FichaTreinoController {
     @Autowired
     FichaTreinoService fichaTreinoServ;
+    @Autowired
+    ClienteService clienteServ;
+    @Autowired
+    ExercicioService exercicioServ;
+
+    @GetMapping("/novo")
+    public String novaFicha(Model model) {
+        model.addAttribute("clientes", clienteServ.getTodosClientes());
+        model.addAttribute("exercicios", exercicioServ.getTodosExercicios());
+        model.addAttribute("listarFichas", fichaTreinoServ.getTodosAsFichas());
+        return "fichaNova";
+    }
 
     @GetMapping("/listar")
     public String listarFichaTreino(Model model) {

@@ -32,4 +32,8 @@ public class FichaTreinoService {
     public void deletarFichaTreino(Long id){
         fichaTreinoRepo.deleteById(id);
     }
+
+    public List<FichaTreino> getTodosAsFichas() {
+        return fichaTreinoRepo.findAll();
+    }
 }

@@ -15,16 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ExercicioController {
     @Autowired
     ExercicioService exercicioServ;
-    @Autowired
-    ClienteService clienteServ;
 
-    @GetMapping("/novo")
-    public String novaFicha(Model model) {
-        model.addAttribute("clientes", clienteServ.getTodosClientes());
-        model.addAttribute("exercicios", exercicioServ.getTodosExercicios());
-        return "fichaNova";
-    }
-    
     @GetMapping("/listar")
     public String listarExercicio(Model model) {
         model.addAttribute("listarExercicios",exercicioServ.getTodosExercicios());
