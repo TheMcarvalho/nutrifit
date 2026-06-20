@@ -16,19 +16,19 @@ public class RefeicaoController {
     RefeicaoService refeicaoServ;
 
     @GetMapping("/listar")
-    public String listarPorCliente(Model model) {
+    public String listarRefeicaoPorCliente(Model model) {
         model.addAttribute("listarRefeicoes", refeicaoServ.getRefeicaoPorCliente(null));
         return "refeicao";
     }
 
     @PostMapping("/salvar")
-    public String salvar(Refeicao refeicao){
+    public String salvarRefeicao(Refeicao refeicao){
         refeicaoServ.salvarRefeicao(refeicao);
         return "redirect:/refeicao/listar";
     }
 
     @PostMapping("/deletar")
-    public String deletar(Refeicao refeicao) {
+    public String deletarRefeicao(Refeicao refeicao) {
         refeicaoServ.deletarRefeicao(refeicao.getId());
         return "redirect:/refeicao/listar";
     }
