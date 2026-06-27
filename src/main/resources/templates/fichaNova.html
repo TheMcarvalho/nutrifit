@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::title}, ~{::main})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>NutriFit - Nova Ficha</title>
+</head>
+<body>
+<main>
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Nova Ficha de Treino</h2>
+        <p class="text-gray-500 text-sm mt-1">Preencha os dados para criar uma nova ficha</p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+        <form th:action="@{/fichaTreino/salvar}" method="post">
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Nome da Ficha</label>
+                    <input type="text" name="nome"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-400"
+                           placeholder="Ex: Treino A - Peito e Tríceps">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Data de Início</label>
+                    <input type="date" name="dataInicio"
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-400">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
+                    <select name="cliente.id"
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-400">
+                        <option value="">Selecione o cliente</option>
+                        <option th:each="cliente : ${clientes}"
+                                th:value="${cliente.id}"
+                                th:text="${cliente.nome}">Cliente</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-base font-semibold text-gray-700">Exercícios da Ficha</h3>
+                    <button type="button" onclick="adicionarItem()"
+                            class="bg-primary-100 hover:bg-primary-200 text-primary-700 text-sm font-medium px-4 py-1.5 rounded-lg transition-colors">
+                        + Adicionar Exercício
+                    </button>
+                </div>
+
+
+                <div class="grid grid-cols-5 gap-3 mb-2 px-1">
+                    <span class="text-xs font-medium text-gray-500">Exercício</span>
+                    <span class="text-xs font-medium text-gray-500">Séries</span>
+                    <span class="text-xs font-medium text-gray-500">Repetições</span>
+                    <span class="text-xs font-medium text-gray-500">Carga (kg)</span>
+                    <span class="text-xs font-medium text-gray-500"></span>
+                </div>
+
+                <div id="itens-container"></div>
+                
+                <select id="exercicios-ref" style="display:none">
+                    <option value="">Selecione</option>
+                    <option th:each="exercicio : ${exercicios}"
+                            th:value="${exercicio.id}"
+                            th:text="${exercicio.nome}">Exercício</option>
+                </select>
+            </div>
+
+
+            <div class="flex gap-3 mt-6">
+                <button type="submit"
+                        class="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 rounded-lg transition-colors text-sm">
+                    Salvar Ficha
+                </button>
+                <a th:href="@{/fichaTreino/listar}"
+                   class="flex-1 text-center border border-gray-300 hover:bg-gray-50 text-gray-600 font-semibold py-2 rounded-lg transition-colors text-sm">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <script th:src="@{/js/ficha.js}"></script>
+</main>
+</body>
+</html>
