@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::title}, ~{::main})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>NutriFit - Dashboard</title>
+</head>
+<body>
+<main>
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Dashboard</h2>
+        <p class="text-gray-500 text-sm mt-1">Visão geral do sistema</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <p class="text-sm text-gray-500">Total de Clientes</p>
+            <p class="text-3xl font-bold text-primary-600 mt-1" th:text="${totalClientes}">0</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <p class="text-sm text-gray-500">Total de Exercícios</p>
+            <p class="text-3xl font-bold text-primary-600 mt-1" th:text="${totalExercicios}">0</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <p class="text-sm text-gray-500">Total de Fichas</p>
+            <p class="text-3xl font-bold text-primary-600 mt-1" th:text="${totalFichas}">0</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <p class="text-sm text-gray-500">Calorias do Dia</p>
+            <p class="text-3xl font-bold text-primary-600 mt-1" th:text="${totalCalorias}">0</p>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <p class="text-sm text-gray-500">TMB Mais Recente</p>
+            <div th:if="${tmbRecente != null and !tmbRecente.isEmpty()}">
+                <p class="text-3xl font-bold text-primary-600 mt-1"
+                   th:text="${tmbRecente[0].resultadoTMB}">0</p>
+            </div>
+            <p th:if="${tmbRecente == null or tmbRecente.isEmpty()}"
+               class="text-gray-400 text-sm mt-1">Nenhum cálculo realizado</p>
+        </div>
+    </div>
+
+    <!-- Metas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <h3 class="text-base font-semibold text-gray-700 mb-4">Todas as Metas</h3>
+            <ul class="space-y-2">
+                <li th:each="meta : ${todasMetas}"
+                    class="flex items-center justify-between text-sm">
+                    <span th:text="${meta.meta}">Meta</span>
+                    <span th:if="${meta.concluido}"
+                          class="px-2 py-0.5 rounded-full bg-primary-100 text-primary-700 text-xs">Concluída</span>
+                    <span th:unless="${meta.concluido}"
+                          class="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-700 text-xs">Em andamento</span>
+                </li>
+            </ul>
+            <p th:if="${todasMetas == null or todasMetas.isEmpty()}"
+               class="text-gray-400 text-sm">Nenhuma meta cadastrada</p>
+        </div>
+
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <h3 class="text-base font-semibold text-gray-700 mb-4">Metas Pendentes</h3>
+            <ul class="space-y-2">
+                <li th:each="meta : ${metasPendentes}"
+                    class="text-sm text-gray-600"
+                    th:text="${meta.meta}">Meta</li>
+            </ul>
+            <p th:if="${metasPendentes == null or metasPendentes.isEmpty()}"
+               class="text-gray-400 text-sm">Nenhuma meta pendente</p>
+        </div>
+    </div>
+</main>
+</body>
+</html>
