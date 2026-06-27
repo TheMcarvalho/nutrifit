@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::title}, ~{::main})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>NutriFit - Metas</title>
+</head>
+<body>
+<main>
+    <div class="mb-6 flex items-center justify-between">
+        <div>
+            <h2 class="text-2xl font-bold text-gray-800">Metas</h2>
+            <p class="text-gray-500 text-sm mt-1">Gerencie as metas dos clientes</p>
+        </div>
+        <a th:href="@{/meta/novo}"
+           class="bg-primary-600 hover:bg-primary-700 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
+            Nova Meta
+        </a>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="border-b border-gray-100">
+                    <th class="text-left py-2 px-3 text-gray-500 font-medium">Cliente</th>
+                    <th class="text-left py-2 px-3 text-gray-500 font-medium">Meta</th>
+                    <th class="text-left py-2 px-3 text-gray-500 font-medium">Peso Alvo (kg)</th>
+                    <th class="text-left py-2 px-3 text-gray-500 font-medium">Status</th>
+                    <th class="text-left py-2 px-3 text-gray-500 font-medium">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="meta : ${listarMeta}"
+                    class="border-b border-gray-50 hover:bg-gray-50">
+                    <td class="py-2 px-3 text-gray-800" th:text="${meta.cliente != null ? meta.cliente.nome : '-'}">Cliente</td>
+                    <td class="py-2 px-3 text-gray-600" th:text="${meta.meta}">Meta</td>
+                    <td class="py-2 px-3 text-gray-600" th:text="${meta.pesoAlvo}">0</td>
+                    <td class="py-2 px-3">
+                        <span th:if="${meta.concluido}"
+                              class="px-2 py-0.5 rounded-full bg-primary-100 text-primary-700 text-xs">Concluída</span>
+                        <span th:unless="${meta.concluido}"
+                              class="px-2 py-0.5 rounded-full bg-yellow-100 text-yellow-700 text-xs">Em andamento</span>
+                    </td>
+                    <td class="py-2 px-3 flex gap-3">
+                        <form th:action="@{/meta/concluir}" method="post" th:if="${!meta.concluido}">
+                            <input type="hidden" name="id" th:value="${meta.id}">
+                            <button type="submit"
+                                    class="text-primary-600 hover:text-primary-800 text-xs font-medium">
+                                Concluir
+                            </button>
+                        </form>
+                        <form th:action="@{/meta/deletar}" method="post">
+                            <input type="hidden" name="id" th:value="${meta.id}">
+                            <button type="submit"
+                                    class="text-red-500 hover:text-red-700 text-xs font-medium">
+                                Deletar
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p th:if="${listarMeta == null or listarMeta.isEmpty()}"
+           class="text-gray-400 text-sm mt-4">Nenhuma meta cadastrada</p>
+    </div>
+</main>
+</body>
+</html>

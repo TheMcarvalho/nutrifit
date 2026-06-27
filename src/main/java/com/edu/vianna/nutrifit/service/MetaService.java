@@ -14,6 +14,9 @@ public class MetaService {
     @Autowired
     MetaRepository metaRepo;
 
+    public List<Meta> getTodosAsMetas() {
+        return metaRepo.findAll();
+    }
     public Meta salvarMeta(Meta meta){
         return  metaRepo.save(meta);
     }

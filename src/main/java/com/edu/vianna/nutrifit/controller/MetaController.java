@@ -1,6 +1,7 @@
 package com.edu.vianna.nutrifit.controller;
 
 import com.edu.vianna.nutrifit.models.Meta;
+import com.edu.vianna.nutrifit.service.ClienteService;
 import com.edu.vianna.nutrifit.service.MetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MetaController {
     @Autowired
     MetaService metaServ;
+    @Autowired
+    ClienteService clienteServ;
 
+    @GetMapping("/novo")
+    public String novaMeta(Model model) {
+        model.addAttribute("clientes", clienteServ.getTodosClientes());
+        return "metaNova";
+    }
     @GetMapping("/listar")
     public String listarMeta(Model model) {
         model.addAttribute("listarMeta", metaServ.getMetasCliente(null));
