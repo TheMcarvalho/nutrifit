@@ -1,5 +1,6 @@
 package com.edu.vianna.nutrifit.controller;
 
+import com.edu.vianna.nutrifit.models.Exercicio;
 import com.edu.vianna.nutrifit.models.FichaTreino;
 import com.edu.vianna.nutrifit.service.ClienteService;
 import com.edu.vianna.nutrifit.service.ExercicioService;
@@ -23,34 +24,34 @@ public class FichaTreinoController {
     @Autowired
     ExercicioService exercicioServ;
 
-    @GetMapping("/novo")
-    public String novaFicha(Model model) {
-        model.addAttribute("clientes", clienteServ.getTodosClientes());
-        model.addAttribute("exercicios", exercicioServ.getTodosExercicios());
-        model.addAttribute("listarFichas", fichaTreinoServ.getTodosAsFichas());
-        return "fichaNova";
-    }
-
     @GetMapping("/listar")
-    public String listarFichaTreino(Model model) {
-        model.addAttribute("listarFichas", fichaTreinoServ.getTodasAsFichasCliente(null));
+    public String listar(Model model) {
+        //model.addAttribute("listarFichas", fichaTreinoServ.getTodasAsFichasCliente(null));
+        model.addAttribute("listarFichas", fichaTreinoServ.getTodosAsFichas());
         return "ficha";
     }
 
     @GetMapping("/ver")
-    public String verFichaTreino(FichaTreino fichaTreino, Model model) {
+    public String ver(FichaTreino fichaTreino, Model model) {
         Optional<FichaTreino> ficha = fichaTreinoServ.getFichaPorId(fichaTreino.getId());
         model.addAttribute("ficha", ficha.get());
         return "fichaDetalhe";
     }
 
+    @GetMapping("/novo")
+    public String novaFicha(Model model) {
+        model.addAttribute("clientes", clienteServ.getTodosClientes());
+        model.addAttribute("exercicios", exercicioServ.getTodosExercicios());
+        return "fichaNova";
+    }
+
     @PostMapping("/salvar")
-    public String salvarFichaTreino(FichaTreino fichaTreino) {
+    public String salvar(FichaTreino fichaTreino) {
         fichaTreinoServ.salvarFichaTreino(fichaTreino);
         return "redirect:/fichaTreino/listar";
     }
     @PostMapping("/deletar")
-    public String deletarFichaTreino(FichaTreino fichaTreino) {
+    public String deletar(FichaTreino fichaTreino) {
         fichaTreinoServ.deletarFichaTreino(fichaTreino.getId());
         return "redirect:/fichaTreino/listar";
     }
