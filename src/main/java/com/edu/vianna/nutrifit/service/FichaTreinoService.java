@@ -2,6 +2,7 @@ package com.edu.vianna.nutrifit.service;
 
 import com.edu.vianna.nutrifit.models.Cliente;
 import com.edu.vianna.nutrifit.models.FichaTreino;
+import com.edu.vianna.nutrifit.models.ItensFicha;
 import com.edu.vianna.nutrifit.repository.FichaTreinoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class FichaTreinoService {
     @Autowired
     FichaTreinoRepository fichaTreinoRepo;
+
     public FichaTreino getFichaPorNome(String nome){
         return fichaTreinoRepo.findByNome(nome);
     }
@@ -25,15 +27,20 @@ public class FichaTreinoService {
         return fichaTreinoRepo.findByCliente(cliente);
     }
 
-    public FichaTreino salvarFichaTreino(FichaTreino fichaTreino){
-        return  fichaTreinoRepo.save(fichaTreino);
+    public List<FichaTreino> getTodosAsFichas() {
+        return fichaTreinoRepo.findAll();
+    }
+
+    public FichaTreino salvarFichaTreino(FichaTreino fichaTreino) {
+        if (fichaTreino.getItensFicha() != null) {
+            for (ItensFicha item : fichaTreino.getItensFicha()) {
+                item.setFichaTreino(fichaTreino);
+            }
+        }
+        return fichaTreinoRepo.save(fichaTreino);
     }
 
     public void deletarFichaTreino(Long id){
         fichaTreinoRepo.deleteById(id);
-    }
-
-    public List<FichaTreino> getTodosAsFichas() {
-        return fichaTreinoRepo.findAll();
     }
 }
