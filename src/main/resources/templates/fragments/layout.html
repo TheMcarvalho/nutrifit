@@ -83,6 +83,12 @@
                         Calcular TMB
                     </a>
                 </li>
+                <li sec:authorize="hasRole('CLIENTE')">
+                    <a th:href="@{/cliente/perfil}"
+                       class="block px-4 py-2 rounded-lg text-primary-100 hover:bg-primary-600 hover:text-white transition-colors text-sm">
+                        Editar Perfil
+                    </a>
+                </li>
             </ul>
         </nav>
 

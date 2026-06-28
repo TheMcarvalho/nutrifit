@@ -1,8 +1,10 @@
 package com.edu.vianna.nutrifit.controller;
 
+import com.edu.vianna.nutrifit.config.DTO.UserLogadoDTO;
 import com.edu.vianna.nutrifit.models.Cliente;
 import com.edu.vianna.nutrifit.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,6 +41,30 @@ public class ClienteController {
     public String deletarCliente(Cliente cliente) {
         clienteServ.deletarCliente(cliente.getId());
         return "redirect:/cliente/listar";
+    }
+
+    @GetMapping("/perfil")
+    public String perfil(Model model, Authentication auth) {
+        long idUsuario = ((UserLogadoDTO) auth.getPrincipal()).getIdUser();
+        Cliente cliente = clienteServ.getCliente(idUsuario);
+        model.addAttribute("cliente", cliente);
+        return "clientePerfil";
+    }
+
+    @PostMapping("/atualizarPerfil")
+    public String atualizarPerfil(Cliente cliente, Authentication auth) {
+        long idUsuario = ((UserLogadoDTO) auth.getPrincipal()).getIdUser();
+        Cliente clienteAtual = clienteServ.getCliente(idUsuario);
+        clienteAtual.setNome(cliente.getNome());
+        clienteAtual.setIdade(cliente.getIdade());
+        clienteAtual.setAltura(cliente.getAltura());
+        clienteAtual.setPeso(cliente.getPeso());
+        clienteAtual.setGenero(cliente.getGenero());
+        if (cliente.getSenha() != null && !cliente.getSenha().isEmpty()) {
+            clienteAtual.setSenha(passwordEncoder.encode(cliente.getSenha()));
+        }
+        clienteServ.salvarCliente(clienteAtual);
+        return "redirect:/cliente/perfil";
     }
 
 }
