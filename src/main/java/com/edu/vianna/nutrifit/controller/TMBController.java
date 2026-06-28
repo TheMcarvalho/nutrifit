@@ -17,7 +17,7 @@ public class TMBController {
 
     @GetMapping("/listar")
     public String listarTMBPorCliente(Model model){
-        model.addAttribute("listarPorCliente", tmbServ.getTMBPorCliente(null));
+        model.addAttribute("listarPorCliente", tmbServ.getTodosTMB());
         return "tmb";
     }
 

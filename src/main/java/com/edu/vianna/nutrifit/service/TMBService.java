@@ -25,7 +25,9 @@ public class TMBService {
         }
         return  resultadoTMB;
     }
-
+    public List<TMB> getTodosTMB() {
+        return tmbRepo.findAll();
+    }
     public List<TMB> getTMBPorCliente(Cliente cliente){
         return tmbRepo.findByCliente(cliente);
     }
