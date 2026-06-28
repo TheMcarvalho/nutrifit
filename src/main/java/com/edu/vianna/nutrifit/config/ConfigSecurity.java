@@ -19,7 +19,7 @@ public class ConfigSecurity {
     public SecurityFilterChain webSecurity(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(auth -> {
-            auth.requestMatchers("/", "/dashboard", "/login",
+            auth.requestMatchers("/login",
                             "/css/**", "/js/**",
                             "/h2-console", "/h2-console/**").permitAll()
                     .requestMatchers("/clientes/**").hasRole("ADMIN")
@@ -35,7 +35,7 @@ public class ConfigSecurity {
                     .defaultSuccessUrl("/dashboard").permitAll();
         }).logout(l -> {
             l.logoutUrl("/logout")
-                    .logoutSuccessUrl("/dashboard").permitAll();
+                    .logoutSuccessUrl("/login").permitAll();
         });
 
         return http.build();

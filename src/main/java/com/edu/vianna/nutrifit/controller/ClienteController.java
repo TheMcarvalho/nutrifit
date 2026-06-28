@@ -3,6 +3,7 @@ package com.edu.vianna.nutrifit.controller;
 import com.edu.vianna.nutrifit.models.Cliente;
 import com.edu.vianna.nutrifit.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ClienteController {
     @Autowired
     ClienteService clienteServ;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @GetMapping("/listar")
     public String listarCliente(Model model) {
@@ -28,6 +31,7 @@ public class ClienteController {
 
     @PostMapping("/salvar")
     public String salvarCliente(Cliente cliente) {
+        cliente.setSenha(passwordEncoder.encode(cliente.getSenha()));
         clienteServ.salvarCliente(cliente);
         return "redirect:/cliente/listar";
     }

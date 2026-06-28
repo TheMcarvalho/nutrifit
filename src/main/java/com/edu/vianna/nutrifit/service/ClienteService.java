@@ -22,6 +22,10 @@ public class ClienteService {
         return cliRepo.findById(id);
     }
 
+    public Cliente getCliente(Long id){
+        return cliRepo.findById(id).get();
+    }
+
     public List<Cliente> getTodosClientes(){
         return cliRepo.findAll();
     }

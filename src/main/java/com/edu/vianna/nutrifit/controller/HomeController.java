@@ -43,7 +43,7 @@ public class HomeController {
                 model.addAttribute("tmbRecente", tmbServ.getTMBPorCliente(null));
             } else if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CLIENTE"))) {
                 long idUsuario = ((UserLogadoDTO) auth.getPrincipal()).getIdUser();
-                Cliente cliente = clienteServ.getClientePorId(idUsuario).orElse(null);
+                Cliente cliente = clienteServ.getCliente(idUsuario);
                 model.addAttribute("totalFichas", fichaTreinoServ.getTodasAsFichasCliente(cliente).size());
                 model.addAttribute("todasMetas", metaServ.getMetasCliente(cliente));
                 model.addAttribute("metasPendentes", metaServ.getMetasPorStatus(cliente, false));
