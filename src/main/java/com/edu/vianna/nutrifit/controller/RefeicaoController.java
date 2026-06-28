@@ -15,9 +15,14 @@ public class RefeicaoController {
     @Autowired
     RefeicaoService refeicaoServ;
 
+    @GetMapping("/novo")
+    public String novaRefeicao() {
+        return "refeicaoNova";
+    }
+
     @GetMapping("/listar")
     public String listarRefeicaoPorCliente(Model model) {
-        model.addAttribute("listarRefeicoes", refeicaoServ.getRefeicaoPorCliente(null));
+        model.addAttribute("listarRefeicoes", refeicaoServ.getTodosAsRefeicoes());
         return "refeicao";
     }
 

@@ -23,7 +23,9 @@ public class RefeicaoService {
     public List<Refeicao> getRefeicaoPorTipoRefeicao(ETipoRefeicao eTipoRefeicao){
         return refeicaoRepo.findByTipoRefeicao(eTipoRefeicao);
     }
-    
+    public List<Refeicao> getTodosAsRefeicoes() {
+        return refeicaoRepo.findAll();
+    }
     public List<Refeicao> getRefeicaoClienteAndTipo(Cliente cliente, ETipoRefeicao eTipoRefeicao){
         return refeicaoRepo.findByClienteAndTipoRefeicao(cliente,eTipoRefeicao);
     }
