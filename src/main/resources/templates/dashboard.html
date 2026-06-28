@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html th:replace="~{fragments/layout :: layout(~{::title}, ~{::main})}"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>NutriFit - Dashboard</title>
 </head>
@@ -12,11 +13,11 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+        <div sec:authorize="hasRole('ADMIN')" class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
             <p class="text-sm text-gray-500">Total de Clientes</p>
             <p class="text-3xl font-bold text-primary-600 mt-1" th:text="${totalClientes}">0</p>
         </div>
-        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+        <div sec:authorize="hasRole('ADMIN')" class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
             <p class="text-sm text-gray-500">Total de Exercícios</p>
             <p class="text-3xl font-bold text-primary-600 mt-1" th:text="${totalExercicios}">0</p>
         </div>
@@ -65,7 +66,7 @@
             <ul class="space-y-2">
                 <li th:each="meta : ${metasPendentes}"
                     class="text-sm text-gray-600"
-                    th:text="${meta.meta}">Meta</li>
+                    th:text="${meta.tipoMeta}">Meta</li>
             </ul>
             <p th:if="${metasPendentes == null or metasPendentes.isEmpty()}"
                class="text-gray-400 text-sm">Nenhuma meta pendente</p>

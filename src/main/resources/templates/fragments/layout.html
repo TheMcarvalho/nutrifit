@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html th:fragment="layout(title, content)"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,13 +47,13 @@
                         Dashboard
                     </a>
                 </li>
-                <li>
+                <li sec:authorize="hasRole('ADMIN')">
                     <a th:href="@{/exercicio/listar}"
                        class="block px-4 py-2 rounded-lg text-primary-100 hover:bg-primary-600 hover:text-white transition-colors text-sm">
                         Exercícios
                     </a>
                 </li>
-                <li>
+                <li sec:authorize="hasRole('ADMIN')">
                     <a th:href="@{/cliente/listar}"
                        class="block px-4 py-2 rounded-lg text-primary-100 hover:bg-primary-600 hover:text-white transition-colors text-sm">
                         Clientes
