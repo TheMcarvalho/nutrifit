@@ -1,6 +1,7 @@
 package com.edu.vianna.nutrifit.models;
 
 import com.edu.vianna.nutrifit.models.enums.EMeta;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,8 +21,7 @@ public class Meta {
     @Enumerated(EnumType.STRING)
     private EMeta tipoMeta;
 
-    @Column(nullable = false)
-    private double pesoAlvo;
+    private Double pesoAlvo;
 
     @Column(nullable = false)
     private boolean concluido;

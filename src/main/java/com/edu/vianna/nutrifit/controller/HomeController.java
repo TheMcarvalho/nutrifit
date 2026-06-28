@@ -36,11 +36,7 @@ public class HomeController {
             if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
                 model.addAttribute("totalClientes", clienteServ.getTodosClientes().size());
                 model.addAttribute("totalExercicios", exercicioServ.getTodosExercicios().size());
-                model.addAttribute("totalFichas", fichaTreinoServ.getTodasAsFichasCliente(null).size());
-                model.addAttribute("todasMetas", metaServ.getMetasCliente(null));
-                model.addAttribute("metasPendentes", metaServ.getMetasPorStatus(null, false));
-                model.addAttribute("totalCalorias", refeicaoServ.getTotalCaloriasDiarias(null));
-                model.addAttribute("tmbRecente", tmbServ.getTMBPorCliente(null));
+                model.addAttribute("totalFichas", fichaTreinoServ.getTodosAsFichas().size());
             } else if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_CLIENTE"))) {
                 long idUsuario = ((UserLogadoDTO) auth.getPrincipal()).getIdUser();
                 Cliente cliente = clienteServ.getCliente(idUsuario);
@@ -48,7 +44,7 @@ public class HomeController {
                 model.addAttribute("todasMetas", metaServ.getMetasCliente(cliente));
                 model.addAttribute("metasPendentes", metaServ.getMetasPorStatus(cliente, false));
                 model.addAttribute("totalCalorias", refeicaoServ.getTotalCaloriasDiarias(cliente));
-                model.addAttribute("tmbRecente", tmbServ.getTMBPorCliente(cliente));
+                model.addAttribute("tmbRecente", tmbServ.getTMBMaisRecente(cliente));
             }
         }
         return "dashboard";

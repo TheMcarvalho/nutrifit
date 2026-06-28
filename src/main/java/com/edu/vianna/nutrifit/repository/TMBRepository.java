@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface TMBRepository extends JpaRepository<TMB, Long> {
     List<TMB> findByCliente (Cliente cliente);
-    TMB findTopByClienteOrderByDataDesc(Cliente cliente);
+    TMB findTopByClienteOrderByDataDescIdDesc(Cliente cliente);
 }

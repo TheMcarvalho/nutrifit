@@ -6,6 +6,7 @@ import com.edu.vianna.nutrifit.models.FichaTreino;
 import com.edu.vianna.nutrifit.service.ClienteService;
 import com.edu.vianna.nutrifit.service.ExercicioService;
 import com.edu.vianna.nutrifit.service.FichaTreinoService;
+import com.edu.vianna.nutrifit.service.ItensFichaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import java.util.Optional;
@@ -25,6 +26,8 @@ public class FichaTreinoController {
     ClienteService clienteServ;
     @Autowired
     ExercicioService exercicioServ;
+    @Autowired
+    ItensFichaService itensFichaServ;
 
     @GetMapping("/listar")
     public String listar(Model model, Authentication auth) {
@@ -67,6 +70,12 @@ public class FichaTreinoController {
     public String deletar(FichaTreino fichaTreino) {
         fichaTreinoServ.deletarFichaTreino(fichaTreino.getId());
         return "redirect:/fichaTreino/listar";
+    }
+
+    @PostMapping("/marcarFeito")
+    public String marcarFeito(Long id, Long fichaId) {
+        itensFichaServ.marcarComoFeito(id);
+        return "redirect:/fichaTreino/ver?id=" + fichaId;
     }
 
 }

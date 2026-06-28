@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html th:replace="~{fragments/layout :: layout(~{::title}, ~{::main})}"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>NutriFit - Detalhes da Ficha</title>
 </head>
@@ -31,6 +32,7 @@
                     <th class="text-left py-2 px-3 text-gray-500 font-medium">Repetições</th>
                     <th class="text-left py-2 px-3 text-gray-500 font-medium">Carga (kg)</th>
                     <th class="text-left py-2 px-3 text-gray-500 font-medium">Feito</th>
+                    <th sec:authorize="hasRole('CLIENTE')" class="text-left py-2 px-3 text-gray-500 font-medium">Ação</th>
                 </tr>
             </thead>
             <tbody>
@@ -45,6 +47,16 @@
                               class="px-2 py-0.5 rounded-full bg-primary-100 text-primary-700 text-xs">Feito</span>
                         <span th:unless="${item.feito}"
                               class="px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 text-xs">Pendente</span>
+                    </td>
+                    <td sec:authorize="hasRole('CLIENTE')" class="py-2 px-3">
+                        <form th:unless="${item.feito}" th:action="@{/fichaTreino/marcarFeito}" method="post">
+                            <input type="hidden" name="id" th:value="${item.id}">
+                            <input type="hidden" name="fichaId" th:value="${ficha.id}">
+                            <button type="submit"
+                                    class="text-primary-600 hover:text-primary-800 text-xs font-medium">
+                                Marcar como Feito
+                            </button>
+                        </form>
                     </td>
                 </tr>
             </tbody>

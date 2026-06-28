@@ -12,12 +12,13 @@
         <p class="text-gray-500 text-sm mt-1">Visão geral do sistema</p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div sec:authorize="hasRole('ADMIN')" class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+    <!-- Cards ADMIN -->
+    <div sec:authorize="hasRole('ADMIN')" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
             <p class="text-sm text-gray-500">Total de Clientes</p>
             <p class="text-3xl font-bold text-primary-600 mt-1" th:text="${totalClientes}">0</p>
         </div>
-        <div sec:authorize="hasRole('ADMIN')" class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
             <p class="text-sm text-gray-500">Total de Exercícios</p>
             <p class="text-3xl font-bold text-primary-600 mt-1" th:text="${totalExercicios}">0</p>
         </div>
@@ -27,24 +28,29 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <!-- Cards CLIENTE -->
+    <div sec:authorize="hasRole('CLIENTE')" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <p class="text-sm text-gray-500">Total de Fichas</p>
+            <p class="text-3xl font-bold text-primary-600 mt-1" th:text="${totalFichas}">0</p>
+        </div>
         <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
             <p class="text-sm text-gray-500">Calorias do Dia</p>
             <p class="text-3xl font-bold text-primary-600 mt-1" th:text="${totalCalorias}">0</p>
         </div>
         <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
             <p class="text-sm text-gray-500">TMB Mais Recente</p>
-            <div th:if="${tmbRecente != null and !tmbRecente.isEmpty()}">
+            <div th:if="${tmbRecente != null}">
                 <p class="text-3xl font-bold text-primary-600 mt-1"
-                   th:text="${tmbRecente[0].resultadoTMB}">0</p>
+                   th:text="${#numbers.formatDecimal(tmbRecente.resultadoTMB, 1, 2)}">0</p>
             </div>
-            <p th:if="${tmbRecente == null or tmbRecente.isEmpty()}"
+            <p th:if="${tmbRecente == null}"
                class="text-gray-400 text-sm mt-1">Nenhum cálculo realizado</p>
         </div>
     </div>
 
-    <!-- Metas -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Metas: apenas CLIENTE -->
+    <div sec:authorize="hasRole('CLIENTE')" class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
             <h3 class="text-base font-semibold text-gray-700 mb-4">Todas as Metas</h3>
             <ul class="space-y-2">

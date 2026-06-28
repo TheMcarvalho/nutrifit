@@ -32,6 +32,10 @@ public class TMBService {
         return tmbRepo.findByCliente(cliente);
     }
 
+    public TMB getTMBMaisRecente(Cliente cliente){
+        return tmbRepo.findTopByClienteOrderByDataDescIdDesc(cliente);
+    }
+
     private double necessidadeCalorica(double tmb,ENivelAtividade eNivelAtividade){
         switch (eNivelAtividade){
             case SEDENTARIO -> {
