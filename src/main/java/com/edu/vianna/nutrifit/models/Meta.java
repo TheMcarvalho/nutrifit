@@ -18,7 +18,7 @@ public class Meta {
     private long id;
 
     @Enumerated(EnumType.STRING)
-    private EMeta meta;
+    private EMeta tipoMeta;
 
     @Column(nullable = false)
     private double pesoAlvo;

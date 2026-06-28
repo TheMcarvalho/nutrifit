@@ -49,7 +49,7 @@
             <ul class="space-y-2">
                 <li th:each="meta : ${todasMetas}"
                     class="flex items-center justify-between text-sm">
-                    <span th:text="${meta.meta}">Meta</span>
+                    <span th:text="${meta.tipoMeta}">Meta</span>
                     <span th:if="${meta.concluido}"
                           class="px-2 py-0.5 rounded-full bg-primary-100 text-primary-700 text-xs">Concluída</span>
                     <span th:unless="${meta.concluido}"

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html th:replace="~{fragments/layout :: layout(~{::title}, ~{::main})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>NutriFit - Nova Meta</title>
+</head>
+<body>
+<main>
+    <div class="mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">Nova Meta</h2>
+        <p class="text-gray-500 text-sm mt-1">Defina uma nova meta para o cliente</p>
+    </div>
+
+    <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 max-w-lg">
+        <form th:action="@{/meta/salvar}" method="post">
+            <div class="mb-3">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
+                <select name="cliente.id"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-400">
+                    <option value="">Selecione o cliente</option>
+                    <option th:each="cliente : ${clientes}"
+                            th:value="${cliente.id}"
+                            th:text="${cliente.nome}">Cliente</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Meta</label>
+                <select name="tipoMeta"
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-400">
+                    <option value="EMAGRECER">Emagrecer</option>
+                    <option value="GANHAR_CONDICIONAMENTO">Ganhar Condicionamento</option>
+                    <option value="GANHAR_MASSA">Ganhar Massa</option>
+                    <option value="MANTER_PESO">Manter Peso</option>
+                    <option value="MELHORAR_SAUDE">Melhorar Saúde</option>
+                </select>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-1">Peso Alvo (kg)</label>
+                <input type="number" step="0.1" name="pesoAlvo"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-400"
+                       placeholder="Ex: 70.5">
+            </div>
+            <div class="flex gap-3">
+                <button type="submit"
+                        class="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 rounded-lg transition-colors text-sm">
+                    Salvar
+                </button>
+                <a th:href="@{/meta/listar}"
+                   class="flex-1 text-center border border-gray-300 hover:bg-gray-50 text-gray-600 font-semibold py-2 rounded-lg transition-colors text-sm">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</main>
+</body>
+</html>
