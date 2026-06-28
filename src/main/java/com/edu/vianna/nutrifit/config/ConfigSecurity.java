@@ -41,4 +41,3 @@ public class ConfigSecurity {
         return http.build();
     }
 }
-
