@@ -71,13 +71,13 @@
                         Metas
                     </a>
                 </li>
-                <li>
+                <li sec:authorize="hasRole('CLIENTE')">
                     <a th:href="@{/refeicao/listar}"
                        class="block px-4 py-2 rounded-lg text-primary-100 hover:bg-primary-600 hover:text-white transition-colors text-sm">
                         Refeições
                     </a>
                 </li>
-                <li>
+                <li sec:authorize="hasRole('CLIENTE')">
                     <a th:href="@{/tmb/listar}"
                        class="block px-4 py-2 rounded-lg text-primary-100 hover:bg-primary-600 hover:text-white transition-colors text-sm">
                         Calcular TMB

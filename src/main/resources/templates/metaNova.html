@@ -14,6 +14,7 @@
 
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 max-w-lg">
         <form th:action="@{/meta/salvar}" method="post">
+            <input type="hidden" name="id" th:value="${meta != null ? meta.id : 0}">
             <div sec:authorize="hasRole('ADMIN')" class="mb-3">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Cliente</label>
                 <select name="cliente.id"

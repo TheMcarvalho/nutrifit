@@ -47,6 +47,15 @@
             <p th:if="${tmbRecente == null}"
                class="text-gray-400 text-sm mt-1">Nenhum cálculo realizado</p>
         </div>
+        <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100">
+            <p class="text-sm text-gray-500">Necessidade Calórica Diária</p>
+            <div th:if="${tmbRecente != null}">
+                <p class="text-3xl font-bold text-primary-600 mt-1"
+                   th:text="${#numbers.formatDecimal(tmbRecente.necessidadeCalorica, 1, 2)}">0</p>
+            </div>
+            <p th:if="${tmbRecente == null}"
+               class="text-gray-400 text-sm mt-1">Nenhum cálculo realizado</p>
+        </div>
     </div>
 
     <!-- Metas: apenas CLIENTE -->

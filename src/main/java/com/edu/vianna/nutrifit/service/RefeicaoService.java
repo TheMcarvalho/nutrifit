@@ -30,6 +30,10 @@ public class RefeicaoService {
         return refeicaoRepo.findByClienteAndTipoRefeicao(cliente,eTipoRefeicao);
     }
 
+    public Refeicao findById(long id) {
+        return refeicaoRepo.findById(id).orElse(null);
+    }
+
     public void deletarRefeicao(Long id){
         refeicaoRepo.deleteById(id);
     }

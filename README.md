@@ -1,93 +1,136 @@
-# Projeto_NutriFit
+# NutriFit
 
+## Descrição do Sistema
 
+O NutriFit é um sistema web de acompanhamento nutricional e treinos personalizados.
+A plataforma permite que administradores gerenciem clientes, exercícios e fichas de treino,
+enquanto os clientes acompanham suas metas, refeições, cálculo de TMB e evolução física
+diretamente pelo sistema.
 
-## Getting started
+---
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Integrantes do Grupo
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+- Matheus Silveira de Carvalho
+- Bruno Esteves dos Reis Marinho
 
-## Add your files
+---
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+## Tecnologias Utilizadas
 
+- Java 25
+- Spring Boot 4.0.6
+- Spring Security 7
+- Spring Data JPA
+- Thymeleaf + Thymeleaf Extras Spring Security
+- Hibernate 7
+- MySQL 8 (produção)
+- H2 (desenvolvimento)
+- Lombok
+- Maven
+
+---
+
+## Instruções de Execução
+
+### Pré-requisitos
+
+- Java 25 instalado
+- MySQL 8 rodando localmente
+- IntelliJ IDEA
+
+### Banco de dados
+
+Crie o banco de dados no MySQL:
+
+```sql
+CREATE DATABASE nutrifitDB;
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/aula-daves/vianna/2026-1/pooa/bruno.esteves/projeto_nutrifit.git
-git branch -M main
-git push -uf origin main
+
+Crie um usuário administrador manualmente (senha: `123`):
+
+```sql
+INSERT INTO usuario (dtype, login, nome, senha) VALUES
+('Admin', 'admin', 'Administrador', '$2a$10$EL6KZmqzgokfcQuff1KfBeB1DzRpuN6TvLm81L650z6/Y4BlnUGQu');
 ```
 
-## Integrate with your tools
+### Executando o projeto
 
-* [Set up project integrations](https://gitlab.com/aula-daves/vianna/2026-1/pooa/bruno.esteves/projeto_nutrifit/-/settings/integrations)
+1. Abra o projeto no IntelliJ IDEA
+2. Certifique-se de que o JDK 25 está configurado no projeto
+3. Abra o arquivo `NutrifitApplication.java`
+4. Clique no botão de play ao lado do método `main` para executar
+5. Acesse em: `http://localhost:9000`
 
-## Collaborate with your team
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+---
 
-## Test and Deploy
+## Funcionalidades Implementadas
 
-Use the built-in continuous integration in GitLab.
+- Login e autenticação com dois perfis: Administrador e Cliente
+- Dashboard personalizado por perfil
+- Gerenciamento de clientes — cadastro, listagem e exclusão (ADMIN)
+- Gerenciamento de exercícios — cadastro, listagem e exclusão (ADMIN)
+- Fichas de treino — criação com múltiplos exercícios, visualização e exclusão
+- Marcar exercícios como feitos na ficha de treino (CLIENTE)
+- Controle de refeições — cadastro e listagem com cálculo de calorias diárias (CLIENTE)
+- Acompanhamento de metas — cadastro com tipo e peso alvo, visualização de status
+- Cálculo de TMB e necessidade calórica diária (CLIENTE)
+- Editar perfil — cliente pode atualizar seus dados pessoais e peso
+- Validações nos formulários com campos obrigatórios e limites numéricos
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+---
 
-***
+## Funcionalidade Extra — Calculadora de TMB e Necessidade Calórica
 
-# Editing this README
+A funcionalidade tem como objetivo calcular a Taxa Metabólica Basal (TMB) do usuário,
+ou seja, quantas calorias o corpo gasta em repouso. Com base nas informações de gênero,
+peso, altura e idade, o sistema realiza o cálculo e retorna o valor do TMB.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Além disso, o usuário informa seu nível de atividade física — sedentário, levemente ativo,
+moderadamente ativo, muito ativo ou extremamente ativo — e o sistema calcula a necessidade
+calórica diária, auxiliando o usuário a manter uma alimentação adequada e evitar déficits
+calóricos elevados que possam causar perda de massa muscular ou fraqueza.
 
-## Suggestions for a good README
+---
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+## Prints do Sistema
 
-## Name
-Choose a self-explaining name for your project.
+### Tela de Login
+<img src="prints/tela-login.png" width="800">
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+### Cadastro de Login
+<img src="prints/cadastro-login.png" width="800">
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+### Dashboard Administrador
+<img src="prints/dashboard-admin.png" width="800">
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+### Dashboard Cliente
+<img src="prints/dashboard-cliente.png" width="800">
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+### Cadastro de Novo Cliente
+<img src="prints/cadastro-novo-cliente.png" width="800">
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+### Listagem de Clientes
+<img src="prints/listagem-clientes.png" width="800">
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+### Cadastro de Exercício
+<img src="prints/cadastro-exercicio.png" width="800">
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+### Listagem de Exercícios (ADMIN)
+<img src="prints/listagem-exercicio-admin.png" width="800">
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+### Visualização de Ficha (ADMIN)
+<img src="prints/visualizacao-ficha-admin.png" width="800">
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+### Formulário de Cadastro de Meta
+<img src="prints/formulario-cadastro-meta.png" width="800">
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+### Listagem de Metas (CLIENTE)
+<img src="prints/listagem-metas-cliente.png" width="800">
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+### Calcular TMB
+<img src="prints/tmb.png" width="800">
 
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+### Editar Perfil do Cliente
+<img src="prints/editar-perfil-cliente.png" width="800">

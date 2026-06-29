@@ -13,25 +13,28 @@
 
     <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 max-w-lg">
         <form th:action="@{/refeicao/salvar}" method="post">
+            <input type="hidden" name="id" th:value="${refeicao != null ? refeicao.id : 0}">
             <div class="mb-3">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de Refeição</label>
                 <select name="tipoRefeicao"
                         class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-400">
-                    <option value="CAFE_DA_MANHA">Café da Manhã</option>
-                    <option value="ALMOCO">Almoço</option>
-                    <option value="CAFE_DA_TARDE">Café da Tarde</option>
-                    <option value="JANTA">Janta</option>
+                    <option value="CAFE_DA_MANHA" th:selected="${refeicao != null and refeicao.tipoRefeicao.name() == 'CAFE_DA_MANHA'}">Café da Manhã</option>
+                    <option value="ALMOCO" th:selected="${refeicao != null and refeicao.tipoRefeicao.name() == 'ALMOCO'}">Almoço</option>
+                    <option value="CAFE_DA_TARDE" th:selected="${refeicao != null and refeicao.tipoRefeicao.name() == 'CAFE_DA_TARDE'}">Café da Tarde</option>
+                    <option value="JANTA" th:selected="${refeicao != null and refeicao.tipoRefeicao.name() == 'JANTA'}">Janta</option>
                 </select>
             </div>
             <div class="mb-3">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Descrição</label>
                 <input type="text" name="descricao" required
+                       th:value="${refeicao != null ? refeicao.descricao : ''}"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-400"
                        placeholder="Ex: Arroz, feijão e frango">
             </div>
             <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700 mb-1">Calorias</label>
                 <input type="number" step="0.1" name="caloria" required min="0"
+                       th:value="${refeicao != null ? refeicao.caloria : ''}"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary-400"
                        placeholder="Ex: 450">
             </div>

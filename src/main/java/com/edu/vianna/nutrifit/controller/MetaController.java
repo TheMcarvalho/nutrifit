@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -49,8 +50,26 @@ public class MetaController {
             Cliente cliente = clienteServ.getCliente(idUsuario);
             meta.setCliente(cliente);
         }
-        meta.setConcluido(false);
+        if (meta.getId() == 0) {
+            meta.setConcluido(false);
+        } else {
+            Meta metaAtual = metaServ.findById(meta.getId());
+            meta.setConcluido(metaAtual.isConcluido());
+        }
         metaServ.salvarMeta(meta);
+        return "redirect:/meta/listar";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String editarMeta(@PathVariable("id") long id, Model model, Authentication auth) {
+        Meta meta = metaServ.findById(id);
+        if (meta != null) {
+            model.addAttribute("meta", meta);
+            if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+                model.addAttribute("clientes", clienteServ.getTodosClientes());
+            }
+            return "metaNova";
+        }
         return "redirect:/meta/listar";
     }
 

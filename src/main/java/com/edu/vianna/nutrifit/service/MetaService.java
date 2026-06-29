@@ -29,6 +29,10 @@ public class MetaService {
     public List<Meta> getMetasPorStatus(Cliente cliente, boolean concluido){
         return metaRepo.findByClienteAndConcluido(cliente, concluido);
     }
+    public Meta findById(long id) {
+        return metaRepo.findById(id).orElse(null);
+    }
+
     public Meta marcarComoConcluida(Long id){
         Optional<Meta> meta = metaRepo.findById(id);
         if(meta.isPresent()){

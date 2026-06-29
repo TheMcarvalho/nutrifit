@@ -22,6 +22,10 @@ public class ExercicioService {
         return exercicioRep.save(exercicio);
     }
 
+    public Exercicio findById(long id) {
+        return exercicioRep.findById(id).orElse(null);
+    }
+
     public void deletarExercicio(Long id){
         exercicioRep.deleteById(id);
     }
